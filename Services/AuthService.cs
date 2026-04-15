@@ -46,5 +46,10 @@ namespace WebAPI.Services
                 return defaultId.First(); // Zwraca 1, jeśli użytkownik o podanym ID nie istnieje
             }
         }   
+
+        public async Task CreateUser(User newUser)
+        {
+            GetDummyUsers().Add(newUser);
+        }
     }
 }

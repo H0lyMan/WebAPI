@@ -16,30 +16,24 @@ namespace WebAPI.Controllers
             _authService = authService;
         }
 
-        [HttpGet]
-        public ActionResult Get()
+        [HttpGet("{id}")]
+        public ActionResult Get(int id)
         {
-            if (_authService.GetUser(2) == 2)
+            if (_authService.GetUser(id) == 11)
             {
-                return Ok(new { message = "Użytkownik o ID 2 istnieje." });
+                return Ok(new { message = "Użytkownik o ID 11 istnieje." });
             }
             else
             {
-                return NotFound(new { message = "Użytkownik o ID 2 nie istnieje." });
+                return NotFound(new { message = "Użytkownik o ID 11 nie istnieje." });
             }
         }
 
         [HttpPost]
-        public ActionResult Post()
+        public ActionResult Post([FromBody] User newUser)
         {
-            if (Get() is OkObjectResult okResult)
-            {
-                return Ok(new { message = "Użytkownik o ID 2 istnieje." });
-            }
-            else
-            {
-                return NotFound(new { message = "Użytkownik o ID 2 nie istnieje." });
-            }
+            _authService.CreateUser(newUser = new User { Id = 11, Passwd = "passwd", Username = "newuser" });
+            return Ok(new { message = "POST request received." });
         }
     }
 }
